@@ -1,3 +1,13 @@
+function operate(operator, a, b) {
+    const operations = {
+        '+' : add,
+        '-' : subtract,
+        '*' : multiply,
+        '/' : divide
+    }
+    return operations[operator](a, b);
+}
+
 function add(a, b) {
     return a + b;
 }
