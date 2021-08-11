@@ -9,9 +9,10 @@
 #calculator {
     width: 426px;
     height: 533px;
-    border: 10px solid gray;
+    border: 10px solid #264653;
     flex-direction: column;
     align-items: center;
+    background-color: #264653;
 }
 
 .calculator {
@@ -19,11 +20,12 @@
 }
 
 .display {
-    border: 5px solid black;
+    border: 5px solid rgb(36, 36, 36);
     justify-content: flex-end;
     align-items: center;
     font-size: 5rem;
     flex: 1;
+    background-color: honeydew;
 }
 
 #controls {
@@ -51,12 +53,53 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
+    margin: 1px;
+    border: 2px solid rgb(36, 36, 36);
+    box-sizing: border-box;
 }
 
-.buttons:active {
-    background-color: gray;
+#clear {
+    background-color: #E76F51;
+}
+
+#clear:active {
+    background-color: #fd7a59;
+}
+
+.numbers {
+    background-color: honeydew;
+}
+
+.numbers:active {
+    background-color: rgb(214, 248, 214);
+}
+
+.operators {
+    background-color: #2a9d8f;
+}
+
+.operators:active {
+    background-color: #2fb8a8;
 }
 
 #zero {
-    flex: 2;
+    flex: 2 2 10px;
+}
+
+#decimal {
+    background-color: rgb(192, 230, 192);
+}
+
+#decimal:active {
+    background-color: rgb(211, 255, 211);
+}
+
+
+#equals {
+    background-color: white;
+}
+
+#equals:active {
+    background-color: rgb(216, 216, 216);
 }
