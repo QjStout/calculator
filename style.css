@@ -24,9 +24,10 @@
     border: 5px solid rgb(36, 36, 36);
     justify-content: flex-end;
     align-items: center;
-    font-size: 5rem;
+    font-size: 4rem;
     flex: 1;
     background-color: honeydew;
+    padding-right: 6px;
 }
 
 #controls {
