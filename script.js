@@ -1,3 +1,5 @@
+const display = new Proxy({}, databindingHandler());
+
 function operate(operator, a, b) {
     const operations = {
         '+' : add,
@@ -27,3 +29,22 @@ function divide(a, b) {
     ;
 }
 
+function databindingHandler() {
+    return {
+        set: (target, property, value) => {
+            value = value.toString();
+            length = value.length <= 10 ? value.length : 10;
+            value = value.slice(0, length);
+
+            target[property] = value;
+            updateDisplay(value);
+        },
+        get: (target, property, receiver) => { 
+            return Number(target[property]);
+        }
+    };
+    
+    function updateDisplay(value) {
+        document.querySelector('#display').innerText = value;
+    }
+}
