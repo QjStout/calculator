@@ -61,12 +61,20 @@
     box-sizing: border-box;
 }
 
-#clear {
+#clear-all {
     background-color: #E76F51;
 }
 
-#clear:active {
+#clear-all:active {
     background-color: #fd7a59;
+}
+
+#clear-entry {
+    background-color: #F4A261;
+}
+
+#clear-entry:active {
+    background-color: #faad6e;
 }
 
 .numbers {

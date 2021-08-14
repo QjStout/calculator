@@ -36,12 +36,17 @@ function divide(a, b) {
 function databindingHandler() {
     return {
         set: (target, property, value) => {
+            if (value === '') {
+                target[property] = '0';
+                updateDisplay(target[property]);
+                return;
+            }
             value = value.toString();
             length = value.length <= 10 ? value.length : 10;
             value = value.slice(0, length);
 
             target[property] = value;
-            updateDisplay(value);
+            updateDisplay(target[property]);
         },
         get: (target, property, receiver) => { 
             return target[property];
@@ -56,19 +61,30 @@ function databindingHandler() {
 function attachEventListeners() {
     attachNumberListeners();
     attachAllClearListener();
+    attachClearEntryListener();
 }
 
-function attachAllClearListener() {
-    document.querySelector("#clear")
-        .addEventListener('click', allClearHandler);
+function attachClearEntryListener() {
+    document.querySelector('#clear-entry')
+        .addEventListener('click', clearEntryHandler);
     
-    function allClearHandler() {
-        clearAllDisplayData();
+    function clearEntryHandler() {
+        if(display.data.length === 1){ display.data = ''; return; }
+        display.data = display.data.slice(0, display.data.length - 1);
     }
 }
 
-function clearAllDisplayData() {
-    display.data = '0';
+function attachAllClearListener() {
+    document.querySelector("#clear-all")
+        .addEventListener('click', allClearHandler);
+    
+    function allClearHandler() {
+        clearAllCalcData();
+    }
+}
+
+function clearAllCalcData() {
+    display.data = '';
     _STORE = '';
     _OPERATOR = '';
 }
