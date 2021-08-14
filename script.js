@@ -1,7 +1,8 @@
 const display = new Proxy({}, databindingHandler());
-display.data = '0';
+display.data = '';
 let _STORE = '';
 let _OPERATOR = '';
+
 attachEventListeners();
 
 function operate(operator, a, b) {
@@ -62,6 +63,20 @@ function attachEventListeners() {
     attachNumberListeners();
     attachAllClearListener();
     attachClearEntryListener();
+    attachOperatorListeners();
+}
+
+function attachOperatorListeners() {
+    const ops = document.querySelectorAll('.operators');
+    ops.forEach(op => {
+        op.addEventListener('click', operatorHandler);
+    });
+    
+    function operatorHandler() {
+        _OPERATOR = this.innerText;
+        _STORE = display.data;
+        display.data = _OPERATOR;
+    }
 }
 
 function attachClearEntryListener() {
@@ -101,7 +116,7 @@ function attachNumberListeners() {
     }
 
     function appendNumberToDisplay(number) {
-        if (display.data === '0') { display.data = number; return; }
+        if (display.data === '0' || isNaN(display.data)) { display.data = number; return; }
         display.data = display.data.concat(number);
     }
 }
