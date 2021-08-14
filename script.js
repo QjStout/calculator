@@ -1,5 +1,7 @@
 const display = new Proxy({}, databindingHandler());
-display.data = 0;
+display.data = '0';
+let _STORE = '';
+let _OPERATOR = '';
 attachEventListeners();
 
 function operate(operator, a, b) {
@@ -53,6 +55,22 @@ function databindingHandler() {
 
 function attachEventListeners() {
     attachNumberListeners();
+    attachAllClearListener();
+}
+
+function attachAllClearListener() {
+    document.querySelector("#clear")
+        .addEventListener('click', allClearHandler);
+    
+    function allClearHandler() {
+        clearAllDisplayData();
+    }
+}
+
+function clearAllDisplayData() {
+    display.data = '0';
+    _STORE = '';
+    _OPERATOR = '';
 }
 
 function attachNumberListeners() {
