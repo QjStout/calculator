@@ -76,7 +76,7 @@ function attachEqualsListener() {
 }
 
 function execute() {
-    if(_OPERATOR === '' || _STORE === '' || display.data === '') {return}
+    if(_OPERATOR === '' || _STORE === '' || display.data === '' || isNaN(display.data)) {return}
     let result = operate(_OPERATOR, _STORE, display.data);
     result = result || result === 0 ? result : display.data;
     clearAllCalcData();
@@ -90,6 +90,11 @@ function attachOperatorListeners() {
     });
     
     function operatorHandler() {
+        if (['+', '-', '*', '/' ].includes(display.data)) { 
+            _OPERATOR = this.innerText; 
+            display.data = _OPERATOR;
+            return; 
+        }
         _OPERATOR = this.innerText;
         _STORE = display.data;
         display.data = _OPERATOR;
