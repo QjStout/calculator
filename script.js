@@ -95,6 +95,12 @@ function attachOperatorListeners() {
             display.data = _OPERATOR;
             return; 
         }
+        if(_OPERATOR !== '' && !isNaN(_STORE) && !isNaN(display.data)) {
+            _STORE = operate(_OPERATOR, _STORE, display.data);
+            _OPERATOR = this.innerText;
+            display.data = _OPERATOR;
+            return;
+        }
         _OPERATOR = this.innerText;
         _STORE = display.data;
         display.data = _OPERATOR;
