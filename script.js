@@ -69,16 +69,30 @@ function attachEventListeners() {
     attachOperatorListeners();
     attachEqualsListener();
     attachDecimalListener();
+    attachKeyboardListener();
+}
+
+function attachKeyboardListener() {
+    document.addEventListener('keydown', keyDownHandler);
+
+    function keyDownHandler(e) {
+        if (!isNaN(e.key)) { appendNumberToDisplay(e.key); }
+        if (['+', '-', '*', '/'].includes(e.key)) { operateThis(e.key); }
+        if(['Enter', '='].includes(e.key)) { execute(); }
+        if(e.key === '.') { decimalHandler(); }
+        if(e.key === 'Escape') { clearAllCalcData(); }
+        if(e.key === 'Backspace') { clearEntryHandler(); }
+    }
 }
 
 function attachDecimalListener() {
     document.querySelector('#decimal')
         .addEventListener('click', decimalHandler);
+}
 
-    function decimalHandler() {
-        if (display.data.includes('.')) { return; }
-        display.data = display.data.concat('.');
-    }
+function decimalHandler() {
+    if (display.data.includes('.')) { return; }
+    display.data = display.data.concat('.');
 }
 
 function attachEqualsListener() {
@@ -101,31 +115,35 @@ function attachOperatorListeners() {
     });
     
     function operatorHandler() {
-        if (['+', '-', '*', '/' ].includes(display.data)) { 
-            _OPERATOR = this.innerText; 
-            display.data = _OPERATOR;
-            return; 
-        }
-        if(_OPERATOR !== '' && !isNaN(_STORE) && !isNaN(display.data)) {
-            _STORE = operate(_OPERATOR, _STORE, display.data);
-            _OPERATOR = this.innerText;
-            display.data = _OPERATOR;
-            return;
-        }
-        _OPERATOR = this.innerText;
-        _STORE = display.data;
-        display.data = _OPERATOR;
+        operateThis(this.innerText);
     }
+}
+
+function operateThis(op) {
+    if (['+', '-', '*', '/'].includes(display.data)) { 
+        _OPERATOR = op; 
+        display.data = _OPERATOR;
+        return; 
+    }
+    if(_OPERATOR !== '' && !isNaN(_STORE) && !isNaN(display.data)) {
+        _STORE = operate(_OPERATOR, _STORE, display.data);
+        _OPERATOR = op;
+        display.data = _OPERATOR;
+        return;
+    }
+    _OPERATOR = op;
+    _STORE = display.data;
+    display.data = _OPERATOR;
 }
 
 function attachClearEntryListener() {
     document.querySelector('#clear-entry')
         .addEventListener('click', clearEntryHandler);
-    
-    function clearEntryHandler() {
-        if(display.data.length === 1){ display.data = ''; return; }
-        display.data = display.data.slice(0, display.data.length - 1);
-    }
+}
+
+function clearEntryHandler() {
+    if(display.data.length === 1){ display.data = ''; return; }
+    display.data = display.data.slice(0, display.data.length - 1);
 }
 
 function attachAllClearListener() {
@@ -153,9 +171,9 @@ function attachNumberListeners() {
     function numberHandler() {
         appendNumberToDisplay(this.innerText);
     }
+}
 
-    function appendNumberToDisplay(number) {
-        if (display.data === '0' || isNaN(display.data)) { display.data = number; return; }
-        display.data = display.data.concat(number);
-    }
+function appendNumberToDisplay(number) {
+    if (display.data === '0' || isNaN(display.data)) { display.data = number; return; }
+    display.data = display.data.concat(number);
 }
