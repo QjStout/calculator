@@ -68,6 +68,17 @@ function attachEventListeners() {
     attachClearEntryListener();
     attachOperatorListeners();
     attachEqualsListener();
+    attachDecimalListener();
+}
+
+function attachDecimalListener() {
+    document.querySelector('#decimal')
+        .addEventListener('click', decimalHandler);
+
+    function decimalHandler() {
+        if (display.data.includes('.')) { return; }
+        display.data = display.data.concat('.');
+    }
 }
 
 function attachEqualsListener() {
