@@ -33,7 +33,7 @@ function multiply(a, b) {
 function divide(a, b) {
     return b !== 0 ?
         a / b : 
-        undefined
+        "undefined"
     ;
 }
 
