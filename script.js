@@ -6,6 +6,9 @@ let _OPERATOR = '';
 attachEventListeners();
 
 function operate(operator, a, b) {
+    if(operator === '' || a === '' || b === '') {return undefined;}
+    a = Number(a);
+    b = Number(b);
     const operations = {
         '+' : add,
         '-' : subtract,
@@ -64,6 +67,20 @@ function attachEventListeners() {
     attachAllClearListener();
     attachClearEntryListener();
     attachOperatorListeners();
+    attachEqualsListener();
+}
+
+function attachEqualsListener() {
+    document.querySelector("#equals")
+        .addEventListener('click', execute);
+}
+
+function execute() {
+    if(_OPERATOR === '' || _STORE === '' || display.data === '') {return}
+    let result = operate(_OPERATOR, _STORE, display.data);
+    result = result || result === 0 ? result : display.data;
+    clearAllCalcData();
+    display.data = result;
 }
 
 function attachOperatorListeners() {
